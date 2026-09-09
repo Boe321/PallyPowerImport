@@ -20,6 +20,9 @@ jobs:
       - name: Package and release
         uses: BigWigsMods/packager@v2
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # release.sh reads GITHUB_OAUTH (not GITHUB_TOKEN) for the GitHub
+          # release; without it the packager builds the zip and silently skips
+          # publishing it.
+          GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
         # No CurseForge / Wago / WoWInterface upload -- those need CF_API_KEY /
         # WAGO_API_TOKEN / WOWI_API_TOKEN as secrets plus the -c / -w / -a flags.
