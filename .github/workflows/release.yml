@@ -1,0 +1,25 @@
+name: Release
+
+# Build the addon zip + a GitHub Release when you push a version tag:
+#   git tag v1.0.0 && git push --tags
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # the packager needs tags + history for the changelog
+
+      - name: Package and release
+        uses: BigWigsMods/packager@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # No CurseForge / Wago / WoWInterface upload -- those need CF_API_KEY /
+        # WAGO_API_TOKEN / WOWI_API_TOKEN as secrets plus the -c / -w / -a flags.

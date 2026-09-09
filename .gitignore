@@ -1,0 +1,8 @@
+# packager output
+.release/
+*.zip
+
+# editor / OS
+.DS_Store
+Thumbs.db
+*~

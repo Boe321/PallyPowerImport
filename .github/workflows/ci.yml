@@ -1,0 +1,21 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  syntax:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update && sudo apt-get install -y lua5.1
+      - name: Lua 5.1 syntax check (WoW runs 5.1)
+        run: luac5.1 -p PallyPowerImport.lua
+      - name: ASCII-only check
+        run: |
+          if LC_ALL=C grep -nP '[^\x00-\x7F]' PallyPowerImport.lua; then
+            echo "::error::non-ASCII byte in PallyPowerImport.lua"
+            exit 1
+          fi

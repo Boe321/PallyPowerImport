@@ -1,0 +1,10 @@
+## Interface: 20506
+## Title: PallyPower Import
+## Notes: Applies PallyPower blessing/aura assignments from a PPI1 string
+## Author: Boe
+## Version: @project-version@
+## X-License: MIT
+## Dependencies: PallyPower
+## SavedVariables: PallyPowerImportDB
+
+PallyPowerImport.lua
